@@ -1,53 +1,42 @@
-import React, { useState } from 'react';
-import './App.css'; // Import global styles here
+import React, { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import './App.css';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import About from './components/About';
-import Portfolio from './components/Portfolio';
-import Contact from './components/Contact';
-import VideoModal from './components/VideoModal';
+import Home from './pages/Home';
+import About from './pages/About';
+import Book from './pages/Book';
+import Portfolio from './pages/Portfolio';
+import Blog from './pages/Blog';
+import Contact from './pages/Contact';
+import ProjectDetail from './pages/ProjectDetail';
+import VideoPlayer from './components/VideoPlayer';
+import Footer from './components/Footer';
 
 function App() {
-  const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false); // Now used below
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
-  const [showVideo, setShowVideo] = useState(false);
+  const [isVideoVisible, setIsVideoVisible] = useState(false);
 
-  const handleContactClick = () => {
-    setIsAboutModalOpen(false);
-    setIsContactModalOpen(true); // This now opens the contact modal
-  };
-
-  const handleFormSubmit = () => {
-    // Simulate form submission (replace with actual logic, e.g., email API via fetch)
-    alert('Contact form submitted! Redirecting to video...');
-    setIsContactModalOpen(false); // Close contact modal
-    setShowVideo(true);
-    setIsVideoModalOpen(true); // Open video modal
-  };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVideoVisible(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="App">
       <Header />
       <main className="main-content">
-        <Hero onOpenAboutModal={() => setIsAboutModalOpen(true)} />
-        <About 
-          isOpen={isAboutModalOpen} 
-          onClose={() => setIsAboutModalOpen(false)} 
-          onContactClick={handleContactClick} 
-        />
-        <Portfolio />
-        <Contact />
-        <VideoModal 
-          isOpen={isContactModalOpen || isVideoModalOpen || showVideo} // Now uses isContactModalOpen
-          onClose={() => {
-            setIsContactModalOpen(false);
-            setIsVideoModalOpen(false);
-            setShowVideo(false);
-          }} 
-          showVideo={showVideo} 
-          handleFormSubmit={handleFormSubmit} 
-        />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/book" element={<Book />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/portfolio/:projectId" element={<ProjectDetail />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+        <Footer />
+        {isVideoVisible && <VideoPlayer onClose={() => setIsVideoVisible(false)} />}
       </main>
     </div>
   );

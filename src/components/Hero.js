@@ -1,23 +1,24 @@
 import React from 'react';
 
-export default function Hero({ onOpenAboutModal }) {
+export default function Hero() {
   return (
-    <section className="hero-section">
-      <div className="hero-content container">
-        {/* Background Image Placeholder - Use regular <img> in CRA */}
-        <img
-          src="/assets/images/hero-bg.jpg" // Replace with your hero background image (place in public/assets/images/)
-          alt="Hero Background"
-          className="hero-bg"
-        />
-        <h1 className="hero-title">Welcome to My Portfolio</h1>
-        <p className="hero-description">Advanced software developer crafting responsive experiences.</p>
-        <button 
-          onClick={onOpenAboutModal}
-          className="hero-button"
-        >
-          Learn More
-        </button>
+    <section className="hero-section" id="home">
+      <div className="hero-content">
+        <div className="designer-side">
+          <div className="vertical-text">Engineer</div>
+          <div className="profile-wrapper">
+          <img 
+            src="/assets/images/profile.jpg" // Replace with your profile image
+            alt="Profile" 
+            className="profile-image"
+          />
+          <div className="profile-overlay-splat-1"></div>
+          <div className="profile-overlay-splat-2"></div>
+          <div className="profile-overlay-splat-3"></div>
+          <div className="profile-blend-layer"></div>
+          </div>
+          <p className="designer-text">A Software enigineer &Project supervisor specialising in developing and supervising a project from start to finish.</p>
+        </div>
       </div>
     </section>
   );
